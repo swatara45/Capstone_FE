@@ -9,7 +9,7 @@ This is the frontend of the MJ Trucking parcel delivery and tracking application
 - Track individual parcel status
 - Responsive "Contact Us" page
 - Footer with company branding and social media links
-- Clean, responsive UI built with standard CSS (no Tailwind, no Redux)
+- Clean, responsive UI built with standard CSS 
 
 ---
 ## ✨ Key Features
@@ -20,7 +20,6 @@ This is the frontend of the MJ Trucking parcel delivery and tracking application
 - 📋 **Contact Us Page**: Form with contact info
 - 📱 **Responsive UI**: Works great on mobile, tablet, and desktop
 - 🧭 **Routing**: SPA navigation with React Router
-- 🎨 **Standard CSS**: Fully custom 
 
 ## 🛠 Tech Stack
 
