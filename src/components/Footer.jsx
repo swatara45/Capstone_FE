@@ -1,19 +1,27 @@
+import '../App.css';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+
 const Footer = () => {
   return (
-    <div className="h-[100px] bg-[#e9eb77] flex items-center justify-between p-[30px] text-[#444]">
-      <div className="flex flex-col">
-        <img src="/MJ_truck.png" alt="" height="50px" width="70px" />
-        <span className="w-[100%]">
-          We understand that your parcels carry more than just items—they carry your trust. Committed to excellence,
-        </span>
-        <span>+15056176700</span>
-        <span>swatara45@gmail.com</span>
+    <footer className="footer">
+      <div className="footer-left">
+        <img src="/MJ_truck.png" alt="MJ Trucking Logo" className="footer-logo" />
+        <p><strong>MJ Trucking</strong> — Your trust, our delivery.</p>
+        <p>📞 (505) 617-6700</p>
+        <p>📧 swatara45@gmail.com</p>
       </div>
-      <div className="flex flex-col">
-        <span>Design by SadiaWatara</span>
-        <span>&copy; copyright 2025</span>
+
+      <div className="footer-right">
+        <p>Design by Sadia Watara</p>
+        <p>&copy; 2025 MJ Trucking</p>
+        <div className="footer-socials">
+          <a href="https://www.facebook.com/mjtrucking" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a>
+          <a href="https://www.instagram.com/mjtrucking" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+          <a href="https://www.linkedin.com/company/mjtrucking" target="_blank" rel="noopener noreferrer"><FaLinkedinIn /></a>
+          <a href="https://www.twitter.com/mjtrucking" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

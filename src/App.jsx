@@ -9,6 +9,8 @@ import Register from "./pages/Register";
 import './App.css';
 import CreateOrder from "./pages/Order";
 import TrackParcel from "./pages/TrackParcel";
+import Logout from "./pages/Logout";
+import ContactUs from "./pages/ContactUs";
 
 
 
@@ -75,6 +77,23 @@ function App() {
         </AuthProvider>
       ),
     },
+    {
+      path: "/logout",
+      element: (
+        <AuthProvider>
+          <Logout />
+        </AuthProvider>
+      ),
+    },
+    {
+      path: "/ContactUs", // <-- Add this route
+      element: (
+        <AuthProvider>
+        <ContactUs />
+        </AuthProvider>
+      ),
+    },  
+    
   ]);
 
   return <RouterProvider router={router} />;

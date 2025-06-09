@@ -18,7 +18,7 @@ const Navbar = () => (
     <div className="dropdown">
   <button className="dropbtn">Menu</button>
   <div className="dropdown-content">
-    <a href="/Contact Us">Contact Us</a>
+    <a href="/ContactUs">Contact Us</a>
     <a href="/Login">Login</a>
     <a href="/Register">Register</a>
     <a href="/logout">Logout</a>
