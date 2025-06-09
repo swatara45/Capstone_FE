@@ -1,5 +1,5 @@
 # MJ Trucking – Frontend
-This is the frontend of the MJ Trucking parcel delivery and tracking application. It is built with **React**, using **React Router**, **Context API** for user authentication, and **Axios** to communicate with the backend.
+This is the frontend of the MJ Trucking parcel delivery and tracking application. It is built with **React**, using **React Router**, **JSON Web Token** for user authentication, and **Axios** to communicate with the backend.
 
 ## 🚀 Features
 
@@ -14,7 +14,7 @@ This is the frontend of the MJ Trucking parcel delivery and tracking application
 ---
 ## ✨ Key Features
 
-- 🔐 **User Authentication**: Login system using email and password (via Context API)
+- - 🔐 **User Authentication**: Login system using email and password (via Context API) with    JWT token-based authentication
 - 📦 **Parcel Management**: View your parcels, see delivery status
 - 🕵️ **Track Parcel**: View parcel details by ID
 - 📋 **Contact Us Page**: Form with contact info

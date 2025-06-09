@@ -7,24 +7,27 @@ const MyParcels = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const fetchParcels = async () => {
-    const email = localStorage.getItem("email");
-    if (!email) {
-      navigate("/login");
-      return;
-    }
+const fetchParcels = async () => {
+  const email = localStorage.getItem("email");
+  if (!email) {
+    navigate("/login");
+    return;
+  }
 
-    try {
-      const res = await publicRequest.post(
-        "/parcels/me",
-        { email }
-      );
-      setParcels(res.data);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch parcels.");
-    }
-  };
+  try {
+    const token = localStorage.getItem("token"); // <-- Add this line
+    const res = await publicRequest.post(
+      "/parcels/me",
+      { email },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    console.log("Fetched parcels:", res.data); 
+    setParcels(res.data);
+  } catch (err) {
+    console.error(err);
+    setError("Failed to fetch parcels.");
+  }
+};
 
   useEffect(() => {
     fetchParcels();

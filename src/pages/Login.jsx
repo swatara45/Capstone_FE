@@ -14,7 +14,7 @@ const handleLogin = async (e) => {
     const res = await publicRequest.post("/auth/login", { email, password });
 
     // Store token securely
-    localStorage.setItem("token", res.data.token); // Ensure your backend returns { token: '...' }
+    localStorage.setItem("token", res.data.accessToken); // Ensure your backend returns { token: '...' }
     localStorage.setItem("email", res.data.email); // Do this after login/register
 
     setMessage("Login successful!");
