@@ -1,12 +1,36 @@
-# React + Vite
+# MJ Trucking – Frontend
+This is the frontend of the MJ Trucking parcel delivery and tracking application. It is built with **React**, using **React Router**, **Context API** for user authentication, and **Axios** to communicate with the backend.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Features
 
-Currently, two official plugins are available:
+- User login
+- View "My Parcels"
+- View all parcel details
+- Track individual parcel status
+- Responsive "Contact Us" page
+- Footer with company branding and social media links
+- Clean, responsive UI built with standard CSS (no Tailwind, no Redux)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+## ✨ Key Features
 
-## Expanding the ESLint configuration
+- 🔐 **User Authentication**: Login system using email and password (via Context API)
+- 📦 **Parcel Management**: View your parcels, see delivery status
+- 🕵️ **Track Parcel**: View parcel details by ID
+- 📋 **Contact Us Page**: Form with contact info
+- 📱 **Responsive UI**: Works great on mobile, tablet, and desktop
+- 🧭 **Routing**: SPA navigation with React Router
+- 🎨 **Standard CSS**: Fully custom 
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠 Tech Stack
+
+- **React** (Vite)
+- **React Router DOM**
+- **Axios**
+- **Context API** for state management
+- **Standard CSS** for styling
+- **React Icons** for social media icons
+
+
+
+
