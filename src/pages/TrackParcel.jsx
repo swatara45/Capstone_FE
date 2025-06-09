@@ -11,19 +11,16 @@ const TrackParcel = () => {
   const [loadingWeather, setLoadingWeather] = useState(false);
   const [error, setError] = useState("");
 
-  // Remove the extra quotes around your real key:
   const OPENWEATHER_API_KEY = "13fee6b66218a021a32d5ae545503994";
 
   useEffect(() => {
     const fetchParcel = async () => {
       try {
         setLoadingParcel(true);
-        // ▶︎ Use the correct “find” endpoint:
         const res = await publicRequest.get(`/parcels/find/${id}`);
         setParcel(res.data);
         setLoadingParcel(false);
 
-        // Only fetch weather if a ZIP code is present:
         if (res.data.destination_zipcode) {
           setLoadingWeather(true);
           fetchWeather(res.data.destination_zipcode);
@@ -53,51 +50,37 @@ const TrackParcel = () => {
     fetchParcel();
   }, [id]);
 
-  // Show loading / error states first:
   if (loadingParcel) {
-    return <p className="p-6">Loading parcel data…</p>;
+    return <p className="trackparcel-loading">Loading parcel data…</p>;
   }
   if (error && !parcel) {
-    return <p className="p-6 text-red-500">{error}</p>;
+    return <p className="trackparcel-error">{error}</p>;
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Tracking Parcel</h1>
+    <div className="trackparcel-container">
+      <h1 className="trackparcel-title">Tracking Parcel</h1>
 
-      <div className="mb-4">
+      <div className="trackparcel-details">
         <p><strong>ID:</strong> {parcel._id}</p>
         <p><strong>Status:</strong> {parcel.status}</p>
         <p><strong>From:</strong> {parcel.from}</p>
         <p><strong>To:</strong> {parcel.to}</p>
-        <p>
-          <strong>Date:</strong>{" "}
-          {new Date(parcel.date).toLocaleDateString()}
-        </p>
-        <p>
-          <strong>Destination ZIP:</strong> {parcel.destination_zipcode || "N/A"}
-        </p>
+        <p><strong>Date:</strong> {new Date(parcel.date).toLocaleDateString()}</p>
+        <p><strong>Destination ZIP:</strong> {parcel.destination_zipcode || "N/A"}</p>
       </div>
 
       {loadingWeather ? (
-        <p>Loading weather data…</p>
+        <p className="trackparcel-weather-loading">Loading weather data…</p>
       ) : weather ? (
-        <div className="mt-4 p-4 bg-blue-100 rounded">
-          <h2 className="text-lg font-semibold mb-2">
-            Weather at Destination (ZIP {parcel.destination_zipcode})
-          </h2>
-          <p>
-            <strong>Temperature:</strong> {weather.main.temp}°C
-          </p>
-          <p>
-            <strong>Condition:</strong> {weather.weather[0].description}
-          </p>
-          <p>
-            <strong>Humidity:</strong> {weather.main.humidity}%
-          </p>
+        <div className="trackparcel-weather">
+          <h2>Weather at Destination (ZIP {parcel.destination_zipcode})</h2>
+          <p><strong>Temperature:</strong> {weather.main.temp}°C</p>
+          <p><strong>Condition:</strong> {weather.weather[0].description}</p>
+          <p><strong>Humidity:</strong> {weather.main.humidity}%</p>
         </div>
       ) : (
-        <p className="text-red-500">{error || "No weather data available."}</p>
+        <p className="trackparcel-error">{error || "No weather data available."}</p>
       )}
     </div>
   );

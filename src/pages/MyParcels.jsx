@@ -8,10 +8,8 @@ const MyParcels = () => {
   const navigate = useNavigate();
 
   const fetchParcels = async () => {
-    const token = localStorage.getItem("token");
-    const email = localStorage.getItem("email"); // Or get from your auth context
-
-    if (!token) {
+    const email = localStorage.getItem("email");
+    if (!email) {
       navigate("/login");
       return;
     }
@@ -19,8 +17,7 @@ const MyParcels = () => {
     try {
       const res = await publicRequest.post(
         "/parcels/me",
-        { email },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { email }
       );
       setParcels(res.data);
     } catch (err) {
