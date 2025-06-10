@@ -1,38 +1,57 @@
 import { useState } from "react";
-import { publicRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Contexts/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const { login, error } = useAuth();
 
-const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await publicRequest.post("/auth/login", { email, password });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login({ email, password });
 
-    // Store token securely
-    localStorage.setItem("token", res.data.accessToken); // Ensure your backend returns { token: '...' }
-    localStorage.setItem("email", res.data.email); // Do this after login/register
+      const role = localStorage.getItem("role");
 
-    setMessage("Login successful!");
-    navigate("/myparcels");
-  } catch (err) {
-    console.error(err);
-    setMessage("Login failed. Please check your credentials.");
-  }
-};
-
+      if (role === "admin") {
+        navigate("/allparcels");
+      } else {
+        navigate("/myparcels");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setMessage("Login failed. Please check your credentials.");
+    }
+  };
 
   return (
-    <form onSubmit={handleLogin} style={{ maxWidth: 400, margin: "2rem auto", padding: 20, background: "#fff", borderRadius: 8 }}>
+    <form onSubmit={handleLogin} className="login-form">
       <h2>Login</h2>
-      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required style={{ display: "block", marginBottom: 10, width: "100%" }} />
-      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required style={{ display: "block", marginBottom: 10, width: "100%" }} />
-      <button type="submit" style={{ padding: "8px 16px", background: "#21b134", color: "#fff", border: "none", borderRadius: 4 }}>Login</button>
-      {message && <p style={{ marginTop: 10 }}>{message}</p>}
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className="login-input"
+        autoComplete="email"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => setPassword(e.target.value)}
+        required
+        className="login-input"
+        autoComplete="current-password"
+      />
+      <button type="submit" className="login-button">
+        Login
+      </button>
+      {(message || error) && (
+        <p className="login-message">{message || error}</p>
+      )}
     </form>
   );
 };

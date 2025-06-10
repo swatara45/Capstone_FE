@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import MyParcels from "./pages/MyParcels";
-import Parcels from "./pages/Parcels";
+import AllParcels from "./pages/AllParcels";
 import { AuthProvider } from "../src/Contexts/AuthContext";
 import { ParcelProvider } from '../src/Contexts/ParcelContext';
 import Register from "./pages/Register";
@@ -11,8 +11,7 @@ import CreateOrder from "./pages/Order";
 import TrackParcel from "./pages/TrackParcel";
 import Logout from "./pages/Logout";
 import ContactUs from "./pages/ContactUs";
-
-
+import MainLayout from "../src/components/MainLayout";
 
 
 function App() {
@@ -20,80 +19,98 @@ function App() {
     {
       path: "/",
       element: (
-        <AuthProvider>
-          <Homepage />
-        </AuthProvider>
+        <MainLayout>
+          <AuthProvider>
+            <Homepage />
+          </AuthProvider>
+        </MainLayout>
       ),
     },
     {
       path: "/Login",
       element: (
-        <AuthProvider>
-          <Login />
-        </AuthProvider>
+        <MainLayout>
+          <AuthProvider>
+            <Login />
+          </AuthProvider>
+        </MainLayout>
       ),
     },
-     {
+    {
       path: "/Register",
       element: (
-        <AuthProvider>
-          <Register />
-        </AuthProvider>
+        <MainLayout>
+          <AuthProvider>
+            <Register />
+          </AuthProvider>
+        </MainLayout>
       ),
     },
     {
       path: "/myparcels",
       element: (
-        <AuthProvider>
-          <ParcelProvider>
-            <MyParcels />
-          </ParcelProvider>
-        </AuthProvider>
+        <MainLayout>
+          <AuthProvider>
+            <ParcelProvider>
+              <MyParcels />
+            </ParcelProvider>
+          </AuthProvider>
+        </MainLayout>
       ),
     },
-       {
+    {
       path: "/order",
       element: (
-        <ParcelProvider>
-          <CreateOrder />
-        </ParcelProvider>
+        <MainLayout>
+          <ParcelProvider>
+            <CreateOrder />
+          </ParcelProvider>
+        </MainLayout>
       ),
     },
-   {
-     path: "/track/:id",
-     element: (
-    <ParcelProvider>
-      <TrackParcel />
-    </ParcelProvider>
-   ),
-},
+    {
+      path: "/track/:id",
+      element: (
+        <MainLayout>
+          <ParcelProvider>
+            <TrackParcel />
+          </ParcelProvider>
+        </MainLayout>
+      ),
+    },
     {
       path: "/allparcels",
       element: (
-        <AuthProvider>
-          <ParcelProvider>
-            <Parcels />
-          </ParcelProvider>
-        </AuthProvider>
+        <MainLayout>
+          <AuthProvider>
+            <ParcelProvider>
+              <AllParcels />
+            </ParcelProvider>
+          </AuthProvider>
+        </MainLayout>
       ),
+      errorElement: <div>Page not found</div>,
     },
     {
       path: "/logout",
       element: (
-        <AuthProvider>
-          <Logout />
-        </AuthProvider>
+        <MainLayout>
+          <AuthProvider>
+            <Logout />
+          </AuthProvider>
+        </MainLayout>
       ),
     },
     {
-      path: "/ContactUs", // <-- Add this route
+      path: "/ContactUs",
       element: (
-        <AuthProvider>
-        <ContactUs />
-        </AuthProvider>
+        <MainLayout>
+          <AuthProvider>
+            <ContactUs />
+          </AuthProvider>
+        </MainLayout>
       ),
-    },  
-    
+    },
   ]);
 
   return <RouterProvider router={router} />;

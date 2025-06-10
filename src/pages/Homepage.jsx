@@ -133,7 +133,7 @@ const Home = () => {
         <img src="/cta.jpg" alt="Delivery Woman" className="cta-image" />
       </div>
 
-      <Footer />
+      
     </div>
   );
 };

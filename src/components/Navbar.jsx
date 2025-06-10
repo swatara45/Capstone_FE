@@ -11,9 +11,8 @@ const Navbar = () => (
       </Link>
       <Link to="/">Home</Link>
       <Link to="/myparcels">My Parcels</Link>
-      <Link to="/allparcels">All Parcels</Link>
       <Link to="/order">Order</Link>
-      <Link to="/track">Track Parcel</Link>
+      <Link to="/allparcels">All Parcels</Link>
     </div>
     <div className="dropdown">
   <button className="dropbtn">Menu</button>

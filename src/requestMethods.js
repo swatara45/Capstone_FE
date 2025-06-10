@@ -1,13 +1,18 @@
+// src/requestMethods.js
 import axios from "axios";
 
+const BASE_URL = "http://localhost:3000/api";
+
+// For public endpoints (e.g. login, register)
 export const publicRequest = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: BASE_URL,
 });
 
-export const userRequest = (token) =>
+// For protected routes (requires token)
+export const authRequest = () =>
   axios.create({
     baseURL: BASE_URL,
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
