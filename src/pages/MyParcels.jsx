@@ -58,6 +58,7 @@ const fetchParcels = async () => {
             <p><strong>Recipient Email:</strong> {parcel.recipientemail}</p>
             <p><strong>Dispatch Address:</strong> {parcel.from}</p>
             <p><strong>Destination Address:</strong> {parcel.to}</p>
+             <p><strong>Destination ZIP:</strong> {String(parcel.destination_zipcode).padStart(5, "0")}</p>
           </div>
           <button
             onClick={() => navigate(`/track/${parcel._id}`)}

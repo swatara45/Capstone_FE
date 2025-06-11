@@ -12,7 +12,7 @@ import TrackParcel from "./pages/TrackParcel";
 import Logout from "./pages/Logout";
 import ContactUs from "./pages/ContactUs";
 import MainLayout from "../src/components/MainLayout";
-
+import EditParcel from "./pages/EditParcel";
 
 function App() {
   const router = createBrowserRouter([
@@ -111,6 +111,20 @@ function App() {
         </MainLayout>
       ),
     },
+    {
+      path:"/editparcel/:id",
+      element: (
+        <MainLayout>
+          <AuthProvider>
+            <ParcelProvider>
+              <EditParcel />
+            </ParcelProvider>
+          </AuthProvider>
+        </MainLayout>
+      ),
+    }
+
+
   ]);
 
   return <RouterProvider router={router} />;

@@ -67,7 +67,7 @@ const TrackParcel = () => {
         <p><strong>From:</strong> {parcel.from}</p>
         <p><strong>To:</strong> {parcel.to}</p>
         <p><strong>Date:</strong> {new Date(parcel.date).toLocaleDateString()}</p>
-        <p><strong>Destination ZIP:</strong> {parcel.destination_zipcode || "N/A"}</p>
+         <p><strong>Destination ZIP:</strong> {String(parcel.destination_zipcode).padStart(5, "0")}</p>
       </div>
 
       {loadingWeather ? (

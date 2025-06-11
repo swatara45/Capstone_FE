@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaEdit, FaTrash } from "react-icons/fa";
 import { useAuth } from "../Contexts/AuthContext";
 import axios from "axios";
+import "../App.css";
 
 const AllParcels = () => {
   const [parcels, setParcels] = useState([]);
@@ -12,37 +13,45 @@ const AllParcels = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchParcels = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        console.log("Token being sent:", token);
-        const res = await axios.get("http://localhost:3000/api/parcels", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setParcels(res.data);
-        setError("");
-      } catch (err) {
-        console.error("Error fetching parcels:", err.response?.data || err.message || err);
-        setError(
-          err.response?.data?.message ||
-          err.response?.data ||
-          "Failed to fetch parcels. Are you logged in as admin?"
-        );
-      }
-    };
-
     if (!currentUser) {
       navigate("/login");
       return;
     }
-
     if (currentUser.role !== "admin") {
       navigate("/myparcels");
       return;
     }
-
     fetchParcels();
   }, [currentUser, navigate]);
+
+  const fetchParcels = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get("http://localhost:3000/api/parcels", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setParcels(res.data);
+      setError("");
+    } catch (err) {
+      setError("Failed to fetch parcels. Are you logged in as admin?");
+    }
+  };
+
+  const handleSingleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:3000/api/parcels/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setParcels(parcels.filter((p) => p._id !== id));
+    } catch (err) {
+      setError("Failed to delete parcel.");
+    }
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/editparcel/${id}`);
+  };
 
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
@@ -51,30 +60,51 @@ const AllParcels = () => {
     { field: "from", headerName: "From", width: 130 },
     { field: "to", headerName: "To", width: 130 },
     { field: "cost", headerName: "Cost ($)", type: "number", width: 130 },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 150,
+      sortable: false,
+      renderCell: (params) => (
+        <div className="action-buttons">
+          <button
+            onClick={() => handleEdit(params.row._id)}
+            className="edit-button"
+            title="Edit"
+          >
+            <FaEdit />
+          </button>
+          <button
+            onClick={() => handleSingleDelete(params.row._id)}
+            className="delete-icon-button"
+            title="Delete"
+          >
+            <FaTrash />
+          </button>
+        </div>
+      ),
+    },
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center mt-[3%] mx-[5%]">
-      <div className="bg-white w-full max-w-[70vw] rounded-md p-6 shadow-md">
-        <Link to="/" className="text-[#444] text-[18px] m-2 hover:opacity-70 inline-flex items-center">
+    <div className="allparcels-container">
+      <div className="allparcels-box">
+        <Link to="/" className="back-link">
           <FaArrowLeft className="mr-2" /> Back to Dashboard
         </Link>
 
-        <div className="flex justify-between p-[10px]">
-          <h2 className="text-xl font-semibold text-[#444]">All Parcels</h2>
-          <span className="text-[#444]">{currentUser?.fullname || "Admin"}</span>
+        <div className="header-bar">
+          <h2 className="header-title">All Parcels</h2>
+          <span className="username-label">{currentUser?.fullname || "Admin"}</span>
         </div>
 
-        {error && (
-          <div className="text-red-600 font-semibold mb-4">{error}</div>
-        )}
+        {error && <div className="error-message">{error}</div>}
 
-        <div className="p-3" style={{ height: 500, width: '100%' }}>
+        <div className="datagrid-container">
           <DataGrid
             rows={parcels}
             getRowId={(row) => row._id}
             columns={columns}
-            checkboxSelection
             pageSize={10}
             rowsPerPageOptions={[5, 10, 20]}
           />

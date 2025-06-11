@@ -55,10 +55,10 @@ const Home = () => {
     const distanceInMiles = distanceResult.routes.car.distance.value / 1609.34;
     const baseRate = 5; // Base fee
     const perMileRate = 0.2; // Adjusted per mile rate
-    const perPoundRate = 0.10; // Adjusted per pound rate
+    const perKgRate = 0.10; // Adjusted per kg rate
 
     const distanceCharge = distanceInMiles * perMileRate;
-    const weightCharge = weight * perPoundRate;
+    const weightCharge = weight * perKgRate;
     const price = baseRate + distanceCharge + weightCharge;
 
     setQuote(`Distance: ${distance} | Time: ${duration} | Weight: ${weight} kg | Estimated Price: $${price.toFixed(1)}`);
