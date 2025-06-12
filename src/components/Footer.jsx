@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="footer-left">
         <img src="/MJ_truck.png" alt="MJ Trucking Logo" className="footer-logo" />
         <p><strong>MJ Trucking</strong> — Your trust, our delivery.</p>
-        <p>📞 (505) 617-6700</p>
+        <p>📞 (505) 000-0000</p>
         <p>📧 swatara45@gmail.com</p>
       </div>
 

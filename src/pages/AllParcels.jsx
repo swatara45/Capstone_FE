@@ -27,7 +27,7 @@ const AllParcels = () => {
   const fetchParcels = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:3000/api/parcels", {
+      const res = await axios.get(`http://localhost:3000/api/parcels`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setParcels(res.data);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import "../App.css"; // Assuming you have some styles defined here
 
 const EditParcel = () => {
   const { id } = useParams();
@@ -18,12 +19,28 @@ const EditParcel = () => {
     const fetchParcel = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:3000/api/parcels/find/${id}`, {
+        if (!token) {
+          setError("Authentication token missing.");
+          return;
+        }
+
+        const res = await axios.get(`http://localhost:3000/api/parcels/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setFormData(res.data);
+
+        console.log("Fetched parcel:", res.data);
+        const parcel = res.data.parcel ? res.data.parcel : res.data;
+
+        setFormData({
+          sendername: parcel.sendername || "",
+          recipientname: parcel.recipientname || "",
+          from: parcel.from || "",
+          to: parcel.to || "",
+          cost: parcel.cost || "",
+        });
       } catch (err) {
         setError("Failed to load parcel.");
+        console.error("Load error:", err.response?.data || err.message || err);
       }
     };
 
@@ -31,52 +48,81 @@ const EditParcel = () => {
   }, [id]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: name === "cost" ? Number(value) : value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const token = localStorage.getItem("token");
-      await axios.put(`http://localhost:3000/api/parcels/find/${id}`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
+      if (!token) {
+        setError("You must be logged in to update a parcel.");
+        return;
+      }
+
+      console.log("Submitting update for parcel ID:", id);
+      console.log("Payload:", formData);
+
+      const res = await axios.put(
+        `http://localhost:3000/api/parcels/${id}`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      console.log("Update response:", res.data);
+
+      // Redirect with success message
+      navigate("/allparcels", {
+        state: { message: "Parcel updated successfully!" },
       });
-      navigate("/allparcels");
     } catch (err) {
+      console.error("Update error:", err.response?.data || err.message || err);
       setError("Failed to update parcel.");
     }
   };
 
-  return (
-    <div className="flex justify-center mt-10">
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded-md w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-4">Edit Parcel</h2>
+  const fieldLabels = {
+  sendername: "Sender Name",
+  recipientname: "Recipient Name",
+  from: "From",
+  to: "To",
+  cost: "Cost",
+};
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+return (
+  <div className="container">
+    <form onSubmit={handleSubmit} className="form">
+      <h2 className="title">Edit Parcel</h2>
 
-        {["sendername", "recipientname", "from", "to", "cost"].map((field) => (
-          <div key={field} className="mb-4">
-            <label className="block text-gray-700 mb-1 capitalize">{field}</label>
-            <input
-              type={field === "cost" ? "number" : "text"}
-              name={field}
-              value={formData[field]}
-              onChange={handleChange}
-              className="w-full border rounded p-2"
-              required
-            />
-          </div>
-        ))}
+      {error && <p className="error">{error}</p>}
 
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          Update Parcel
-        </button>
-      </form>
-    </div>
-  );
+      {["sendername", "recipientname", "from", "to", "cost"].map((field) => (
+        <div key={field} className="formGroup">
+          <label className="label">{fieldLabels[field]}</label>
+          <input
+            type={field === "cost" ? "number" : "text"}
+            name={field}
+            value={formData[field]}
+            onChange={handleChange}
+            className="input"
+            required
+          />
+        </div>
+      ))}
+
+      <button type="submit" className="button">
+        Update Parcel
+      </button>
+    </form>
+  </div>
+);
 };
 
 export default EditParcel;

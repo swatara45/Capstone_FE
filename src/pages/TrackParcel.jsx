@@ -17,7 +17,11 @@ const TrackParcel = () => {
     const fetchParcel = async () => {
       try {
         setLoadingParcel(true);
-        const res = await publicRequest.get(`/parcels/find/${id}`);
+        const token = localStorage.getItem("token");
+        const res = await axios.get(
+          `http://localhost:3000/api/parcels/find/${id}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         setParcel(res.data);
         setLoadingParcel(false);
 
@@ -67,7 +71,7 @@ const TrackParcel = () => {
         <p><strong>From:</strong> {parcel.from}</p>
         <p><strong>To:</strong> {parcel.to}</p>
         <p><strong>Date:</strong> {new Date(parcel.date).toLocaleDateString()}</p>
-         <p><strong>Destination ZIP:</strong> {String(parcel.destination_zipcode).padStart(5, "0")}</p>
+        <p><strong>Destination ZIP:</strong> {String(parcel.destination_zipcode).padStart(5, "0")}</p>
       </div>
 
       {loadingWeather ? (

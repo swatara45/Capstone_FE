@@ -1,4 +1,6 @@
 import { useState } from "react";
+import "../App.css";
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -18,21 +20,19 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // You can send data to backend here using Axios
     console.log("Form Submitted:", formData);
     setSubmitted(true);
     setFormData({ fullname: "", email: "", message: "" });
   };
 
   return (
-    <div className="contact-container" style={{ padding: "2rem", maxWidth: "600px", margin: "auto" }}>
+    <div className="contact-container">
       <h2>Contact Us</h2>
 
       {submitted ? (
-        <p style={{ color: "green" }}>Thank you! We’ll get back to you shortly.</p>
+        <p className="success-message">Thank you! We’ll get back to you shortly.</p>
       ) : (
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <form onSubmit={handleSubmit} className="contact-form">
           <input
             type="text"
             name="fullname"
@@ -57,9 +57,7 @@ const Contact = () => {
             onChange={handleChange}
             required
           ></textarea>
-          <button type="submit" style={{ padding: "0.5rem", background: "#333", color: "white", cursor: "pointer" }}>
-            Send Message
-          </button>
+          <button type="submit">Send Message</button>
         </form>
       )}
     </div>
