@@ -79,12 +79,13 @@ const CreateOrder = () => {
       });
 
       // Convert meters to miles
-      const distanceInMiles = distanceResult.routes.car.distance.value / 1609.34;
+      const distanceText = distanceResult.routes.car.distance.text; // e.g., "2027.1 mi"
+      const distanceInMiles = parseFloat(distanceText); // Converts "2027.1 mi" → 2027.1
 
       // Pricing calculation
       const baseRate = 5;
-      const perMileRate = 0.2;
-      const perKgRate = 0.10;
+      const perMileRate = 2.8;
+      const perKgRate = 0;
 
       const distanceCharge = distanceInMiles * perMileRate;
       const weightCharge = parseFloat(weight) * perKgRate;
@@ -263,3 +264,5 @@ const CreateOrder = () => {
 };
 
 export default CreateOrder;
+
+

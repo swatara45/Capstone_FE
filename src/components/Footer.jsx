@@ -5,10 +5,12 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-left">
-        <img src="/MJ_truck.png" alt="MJ Trucking Logo" className="footer-logo" />
-        <p><strong>MJ Trucking</strong> — Your trust, our delivery.</p>
-        <p>📞 (505) 000-0000</p>
-        <p>📧 swatara45@gmail.com</p>
+        <img src="/MJ_truck.jpeg" alt="MJ Trucking Logo" className="footer-logo" />
+        <span>MJ Trucking — Your trust, our delivery.</span>
+      </div>
+      <div className="footer-contact">
+        <span>Email: <a href="mailto:info@mjtrucking.com"> 📧 info@mansjoketrucking.com</a></span>
+        <span>Phone: <a href="tel:+1234567890">📞 +1 (505) 397-5459</a></span>
       </div>
 
       <div className="footer-right">

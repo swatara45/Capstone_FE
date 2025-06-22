@@ -2,11 +2,15 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 const MainLayout = ({ children }) => (
-  <>
-    <Navbar />
-    <div style={{ minHeight: "80vh" }}>{children}</div>
+   <>
+   <Navbar/>
+  <div className="app-container">
+    <div className="main-content">
+      {children}
+    </div>
     <Footer />
-  </>
+  </div>
+</>
 );
 
 export default MainLayout;

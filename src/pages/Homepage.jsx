@@ -13,131 +13,130 @@ const Home = () => {
   const [quote, setQuote] = useState(null);
   const [error, setError] = useState("");
 
- const handleQuote = async (e) => {
-  e.preventDefault();
-  setQuote(null);
-  setError("");
+  const handleQuote = async (e) => {
+    e.preventDefault();
+    setQuote(null);
+    setError("");
 
-  if (!pickup || !dropoff || !weight) {
-    setError("Please enter both pickup and drop-off locations and package weight.");
-    return;
-  }
-
-  try {
-    // Geocode pickup address
-    const pickupResult = await Radar.forwardGeocode({ query: pickup });
-    if (!pickupResult.addresses.length) {
-      setError("Pickup location not found.");
+    if (!pickup || !dropoff || !weight) {
+      setError("Please enter both pickup and drop-off locations and package weight.");
       return;
     }
-    const pickupCoords = pickupResult.addresses[0].geometry.coordinates;
 
-    // Geocode dropoff address
-    const dropoffResult = await Radar.forwardGeocode({ query: dropoff });
-    if (!dropoffResult.addresses.length) {
-      setError("Drop-off location not found.");
-      return;
-    }
-    const dropoffCoords = dropoffResult.addresses[0].geometry.coordinates;
+    try {
+      // Geocode pickup address
+      const pickupResult = await Radar.forwardGeocode({ query: pickup });
+      if (!pickupResult.addresses.length) {
+        setError("Pickup location not found.");
+        return;
+      }
+      const pickupCoords = pickupResult.addresses[0].geometry.coordinates;
 
-    // Calculate distance
-    const distanceResult = await Radar.distance({
-      origin: { latitude: pickupCoords[1], longitude: pickupCoords[0] },
-      destination: { latitude: dropoffCoords[1], longitude: dropoffCoords[0] },
-      modes: ['car'],
-      units: 'imperial',
-    });
+      // Geocode dropoff address
+      const dropoffResult = await Radar.forwardGeocode({ query: dropoff });
+      if (!dropoffResult.addresses.length) {
+        setError("Drop-off location not found.");
+        return;
+      }
+      const dropoffCoords = dropoffResult.addresses[0].geometry.coordinates;
 
-    const distance = distanceResult.routes.car.distance.text;
-    const duration = distanceResult.routes.car.duration.text;
+      // Calculate distance
+      const distanceResult = await Radar.distance({
+        origin: { latitude: pickupCoords[1], longitude: pickupCoords[0] },
+        destination: { latitude: dropoffCoords[1], longitude: dropoffCoords[0] },
+        modes: ['car'],
+        units: 'imperial',
+      });
 
-    // Updated pricing model
-    const distanceInMiles = distanceResult.routes.car.distance.value / 1609.34;
-    const baseRate = 5; // Base fee
-    const perMileRate = 0.2; // Adjusted per mile rate
-    const perKgRate = 0.10; // Adjusted per kg rate
+      const distance = distanceResult.routes.car.distance.text;
+      const duration = distanceResult.routes.car.duration.text;
 
-    const distanceCharge = distanceInMiles * perMileRate;
-    const weightCharge = weight * perKgRate;
-    const price = baseRate + distanceCharge + weightCharge;
-
-    setQuote(`Distance: ${distance} | Time: ${duration} | Weight: ${weight} kg | Estimated Price: $${price.toFixed(1)}`);
-  } catch (err) {
-    console.error(err);
-    setError("Network error. Please try again.");
-  }
-};
-
-
-// ...existing code...
- return (
-    <div className="home-container">
-      <Navbar />
-      <div className="hero-section">
-        <div className="hero-text">
-          <h1>SIMPLE, FAST & RELIABLE DELIVERY</h1>
-          <p>Move your packages with confidence. Nationwide coverage. Real-time updates. Instant quotes.</p>
-          <form className="quote-form" onSubmit={handleQuote}>
-            <div className="input-group">
-              <FaMapMarkerAlt className="icon" />
-              <input
-                type="text"
-                placeholder="Pickup Location"
-                value={pickup}
-                onChange={(e) => setPickup(e.target.value)}
-              />
-            </div>
-            <div className="input-group">
-              <FaMapMarkerAlt className="icon" />
-              <input
-                type="text"
-                placeholder="Drop-off Location"
-                value={dropoff}
-                onChange={(e) => setDropoff(e.target.value)}
-              />
-            </div>
-            <input
-              type="number"
-              placeholder="Package Weight (kg)"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              min="1"
-            />
-            <button type="submit">Get a Quote <FaArrowRight /></button>
-            {error && <p className="error">{error}</p>}
-            {quote && <p className="quote">{quote}</p>}
-          </form>
-        </div>
-        <img src="/delivery.webp" alt="Delivery Hero" className="hero-image" />
-      </div>
-
-      <div className="testimonials">
-        <h2>What Our Customers Say</h2>
-        <div className="testimonial-cards">
-          <div className="testimonial">
-            <p>“Super fast and reliable! My package arrived earlier than expected. Highly recommend.”</p>
-            <span>— Alex J.</span>
-          </div>
-          <div className="testimonial">
-            <p>“The real-time tracking gave me peace of mind. Excellent service and support!”</p>
-            <span>— Priya S.</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="cta-section">
-        <div className="cta-text">
-          <h2>Ready to move your package?</h2>
-          <p>Join thousands of happy customers and experience hassle-free delivery today.</p>
-        </div>
-        <img src="/cta.jpg" alt="Delivery Woman" className="cta-image" />
-      </div>
-
+      // Updated pricing model
+      const distanceText = distanceResult.routes.car.distance.text; // e.g., "2027.1 mi"
+      const distanceInMiles = parseFloat(distanceText); // Converts "2027.1 mi" → 2027.1
+      const baseRate = 5; // Base fee
+      const perMileRate = 2.8; // $2.80 per mile
+      const perKgRate = 0; // currently no charge for weight
       
-    </div>
-  );
-};
+      const distanceCharge = distanceInMiles * perMileRate;
+      const weightCharge = weight * perKgRate;
 
-export default Home;
+      const price = baseRate + distanceCharge + weightCharge;
 
-  
+      setQuote(`Distance: ${distanceText} | Time: ${distanceResult.routes.car.duration.text} | Estimated Price: $${price.toFixed(2)}`);
+    } catch (err) {
+      console.error(err);
+      setError("Network error. Please try again.");
+    }
+  };
+
+    // ...existing code...
+    return (
+      <div className="home-container">
+        <Navbar />
+        <div className="hero-section">
+          <div className="hero-text">
+            <h1>SIMPLE, FAST & RELIABLE DELIVERY</h1>
+            <p>Move your packages with confidence. Nationwide coverage. Real-time updates. Instant quotes.</p>
+            <form className="quote-form" onSubmit={handleQuote}>
+              <div className="input-group">
+                <FaMapMarkerAlt className="icon" />
+                <input
+                  type="text"
+                  placeholder="Pickup Location"
+                  value={pickup}
+                  onChange={(e) => setPickup(e.target.value)}
+                />
+              </div>
+              <div className="input-group">
+                <FaMapMarkerAlt className="icon" />
+                <input
+                  type="text"
+                  placeholder="Drop-off Location"
+                  value={dropoff}
+                  onChange={(e) => setDropoff(e.target.value)}
+                />
+              </div>
+              <input
+                type="number"
+                placeholder="Package Weight (kg)"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+                min="1"
+              />
+              <button type="submit">Get a Quote <FaArrowRight /></button>
+              {error && <p className="error">{error}</p>}
+              {quote && <p className="quote">{quote}</p>}
+            </form>
+          </div>
+          <img src="/delivery.webp" alt="Delivery Hero" className="hero-image" />
+        </div>
+
+        <div className="testimonials">
+          <h2>What Our Customers Say</h2>
+          <div className="testimonial-cards">
+            <div className="testimonial">
+              <p>“Super fast and reliable! My package arrived earlier than expected. Highly recommend.”</p>
+              <span>— Alex J.</span>
+            </div>
+            <div className="testimonial">
+              <p>“The real-time tracking gave me peace of mind. Excellent service and support!”</p>
+              <span>— Priya S.</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="cta-section">
+          <div className="cta-text">
+            <h2>Ready to move your package?</h2>
+            <p>Join thousands of happy customers and experience hassle-free delivery today.</p>
+          </div>
+          <img src="/cta.jpg" alt="Delivery Woman" className="cta-image" />
+        </div>
+
+
+      </div>
+    );
+  };
+
+  export default Home;

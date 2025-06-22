@@ -207,7 +207,48 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 30px;
+  padding: 30px 30px;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevents content from spilling out */
+  flex-wrap: wrap;   /* Allows wrapping on smaller screens */
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+/* Style the footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 32px;
+  background: #f8e97a;
+  flex-wrap: wrap;
+}
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 1rem;
+  color: #125ea3;
+}
+.footer-contact a {
+  color: #125ea3;
+  text-decoration: none;
 }
 
 /* src/pages/Home.css */
@@ -348,30 +389,31 @@ body {
 /* src/pages/Login.css */
 
 .login-form {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 20px;
+  max-width: 800px;         /* increased from 600px */
+  margin: 3rem auto;        /* more space around */
+  padding: 40px;            /* more padding inside the form */
   background: #fff;
-  border-radius: 8px;
+  border-radius: 10px;      /* slightly more rounded */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* optional: subtle shadow */
 }
 
 .login-input {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 16px;      /* more space between inputs */
   width: 100%;
-  padding: 8px;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;            /* taller input */
+  font-size: 1.1rem;        /* slightly larger text */
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 .login-button {
-  padding: 8px 16px;
+  padding: 12px 24px;       /* larger button */
   background: #21b134;
   color: #fff;
   border: none;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
   cursor: pointer;
 }
 
@@ -380,9 +422,11 @@ body {
 }
 
 .login-message {
-  margin-top: 10px;
+  margin-top: 12px;
   color: #d32f2f;
+  font-size: 1rem;
 }
+
 
 /* CreateOrder.css */
 

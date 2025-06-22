@@ -5,7 +5,7 @@ const Navbar = () => (
     <div className="navbar-left">
       <Link to="/">
         <img
-          src="/MJ_truck.png"
+          src="/MJ_truck.jpeg"
           alt="MJ Truck Logo"
         />
       </Link>
