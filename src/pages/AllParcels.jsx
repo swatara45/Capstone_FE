@@ -27,7 +27,7 @@ const AllParcels = () => {
   const fetchParcels = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:3000/api/parcels`, {
+      const res = await axios.get(`https://capstone-be-1-sqdu.onrender.com/api/parcels`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setParcels(res.data);
@@ -40,7 +40,7 @@ const AllParcels = () => {
   const handleSingleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/api/parcels/${id}`, {
+      await axios.delete(`https://capstone-be-1-sqdu.onrender.com/api/parcels/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setParcels(parcels.filter((p) => p._id !== id));

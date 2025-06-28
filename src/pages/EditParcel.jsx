@@ -24,7 +24,7 @@ const EditParcel = () => {
           return;
         }
 
-        const res = await axios.get(`http://localhost:3000/api/parcels/${id}`, {
+        const res = await axios.get(`https://capstone-be-1-sqdu.onrender.com/api/parcels/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -69,7 +69,7 @@ const EditParcel = () => {
       console.log("Payload:", formData);
 
       const res = await axios.put(
-        `http://localhost:3000/api/parcels/${id}`,
+        `https://capstone-be-1-sqdu.onrender.com/api/parcels/${id}`,
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },

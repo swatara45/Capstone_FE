@@ -19,7 +19,7 @@ const TrackParcel = () => {
         setLoadingParcel(true);
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `http://localhost:3000/api/parcels/find/${id}`,
+          `https://capstone-be-1-sqdu.onrender.com/api/parcels/find/${id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setParcel(res.data);

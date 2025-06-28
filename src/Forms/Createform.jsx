@@ -30,7 +30,7 @@ export default function CreateForm() {
 
     try {
       if (formData.title && formData.category && formData.desc && formData.img) {
-        let res = await axios.post(`http://localhost:3000/api/parcels`, formData, {
+        let res = await axios.post(`https://capstone-be-1-sqdu.onrender.com/api/parcels`, formData, {
           headers: { token: cookies.token },
         });
 
