@@ -6,12 +6,13 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setMessage(""); // Clear old messages
+
     try {
       await login({ email, password });
 
@@ -23,8 +24,8 @@ const Login = () => {
         navigate("/myparcels");
       }
     } catch (err) {
-      console.error("Login error:", err);
-      setMessage("Login failed. Please check your credentials.");
+      console.log("Caught error:", err);
+      setMessage(err.message || "Login failed. Please try again.");
     }
   };
 
@@ -35,7 +36,10 @@ const Login = () => {
         type="email"
         placeholder="Email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value);
+          setMessage("");
+        }}
         required
         className="login-input"
         autoComplete="email"
@@ -44,7 +48,10 @@ const Login = () => {
         type="password"
         placeholder="Password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => {
+          setPassword(e.target.value);
+          setMessage("");
+        }}
         required
         className="login-input"
         autoComplete="current-password"
@@ -52,9 +59,7 @@ const Login = () => {
       <button type="submit" className="login-button">
         Login
       </button>
-      {(message || error) && (
-        <p className="login-message">{message || error}</p>
-      )}
+      {message && <p className="login-message">{message}</p>}
     </form>
   );
 };

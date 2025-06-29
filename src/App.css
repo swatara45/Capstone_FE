@@ -952,3 +952,27 @@ p {
   color: green;
   font-weight: bold;
 }
+
+
+.container {
+  padding: 20px;
+  font-size: 1.2rem;
+}
+
+/* For phones (max width 600px) */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+    font-size: 1rem;
+    flex-direction: column;
+  }
+}
+
+.login-message {
+  color: red;
+  background-color: #ffe6e6;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  text-align: center;
+}

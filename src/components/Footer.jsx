@@ -14,7 +14,6 @@ const Footer = () => {
       </div>
 
       <div className="footer-right">
-        <p>Designed by Sadia Watara</p>
         <p>&copy; 2025 MJ Trucking</p>
         <div className="footer-socials">
           <a href="https://www.facebook.com/mjtrucking" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a>
