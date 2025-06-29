@@ -13,6 +13,7 @@ import Logout from "./pages/Logout";
 import ContactUs from "./pages/ContactUs";
 import MainLayout from "../src/components/MainLayout";
 import EditParcel from "./pages/EditParcel";
+import path from "path";
 
 function App() {
   const router = createBrowserRouter([
@@ -46,6 +47,26 @@ function App() {
         </MainLayout>
       ),
     },
+    {
+      path: "/Careers",
+      element: (
+        <MainLayout>
+          <div className="careers-simple" style={{ padding: "2rem", textAlign: "center" }}>
+            <h2>We're Hiring Drivers!</h2>
+            <p>
+              Mans Joke Trucking is looking for reliable and professional drivers to join our team. CDL is required.
+              If you're interested, please send your resume to:
+            </p>
+            <p>
+              <a href="mailto:careers@mjtruckdelivery.com?subject=Driver%20Application">
+                info@mansjoketrucking.com
+              </a>
+            </p>
+          </div>
+        </MainLayout>
+      ),
+    },
+
     {
       path: "/myparcels",
       element: (

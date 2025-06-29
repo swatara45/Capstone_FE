@@ -60,6 +60,7 @@ const AllParcels = () => {
     { field: "from", headerName: "From", width: 130 },
     { field: "to", headerName: "To", width: 130 },
     { field: "cost", headerName: "Cost ($)", type: "number", width: 130 },
+    { field: "status", headerName: "Status", width: 130 }, 
     {
       field: "actions",
       headerName: "Actions",

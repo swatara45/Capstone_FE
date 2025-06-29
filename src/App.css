@@ -906,25 +906,57 @@ p {
 
 /* Contact.css */
 
-.contact-container {
+.contact-fullpage {
+  min-height: 100vh;
   padding: 2rem;
-  max-width: 600px;
-  margin: auto;
-  color: black; 
-  background-color: white;
+  background-color: #84e284; /* Light background for contrast */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem; /* adds space between about-section and contact-section */
 }
 
 
-.container {
-  padding: 20px;
-  font-size: 1.2rem;
+.about-section h2,
+.contact-section h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #0a0a0a;
 }
 
+.about-section p,
+.contact-section p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.careers-simple {
+  text-align: center;
+  padding: 2rem;
+  font-family: sans-serif;
+  background-color: #68be68;
+  min-height: 80vh;
+}
+
+.careers-simple h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.careers-simple a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.careers-simple a:hover {
+  text-decoration: underline;
+}
 
 
 .login-message {
   color: red;
-  background-color: #ffe6e6;
+  background-color: #987a7d;
   padding: 10px;
   margin-top: 10px;
   border-radius: 4px;

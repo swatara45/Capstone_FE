@@ -37,6 +37,7 @@ const EditParcel = () => {
           from: parcel.from || "",
           to: parcel.to || "",
           cost: parcel.cost || "",
+          status: parcel.status || "",
         });
       } catch (err) {
         setError("Failed to load parcel.");
@@ -94,6 +95,7 @@ const EditParcel = () => {
   from: "From",
   to: "To",
   cost: "Cost",
+  status: "Status",
 };
 
 return (
@@ -103,7 +105,7 @@ return (
 
       {error && <p className="error">{error}</p>}
 
-      {["sendername", "recipientname", "from", "to", "cost"].map((field) => (
+      {["sendername", "recipientname", "from", "to", "cost", "status"].map((field) => (
         <div key={field} className="formGroup">
           <label className="label">{fieldLabels[field]}</label>
           <input

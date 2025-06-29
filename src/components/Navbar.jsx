@@ -53,7 +53,8 @@ const Navbar = () => (
                 Menu
               </button>
               <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="menuDropdown">
-                <li><Link className="dropdown-item" to="/ContactUs">Contact Us</Link></li>
+                <li><Link className="dropdown-item" to="/ContactUs">About Us</Link></li>
+                <li><Link className="dropdown-item" to="/Careers">Careers</Link></li>
                 <li><Link className="dropdown-item" to="/Login">Login</Link></li>
                 <li><Link className="dropdown-item" to="/Register">Register</Link></li>
                 <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
