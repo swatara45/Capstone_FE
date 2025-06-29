@@ -73,7 +73,6 @@ const Home = () => {
     // ...existing code...
     return (
       <div className="home-container">
-        <Navbar />
         <div className="hero-section">
           <div className="hero-text">
             <h1>SIMPLE, FAST & RELIABLE DELIVERY</h1>

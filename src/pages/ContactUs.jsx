@@ -2,64 +2,16 @@ import { useState } from "react";
 import "../App.css";
 
 
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    fullname: "",
-    email: "",
-    message: "",
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Submitted:", formData);
-    setSubmitted(true);
-    setFormData({ fullname: "", email: "", message: "" });
-  };
-
   return (
     <div className="contact-container">
-      <h2>Contact Us</h2>
-
-      {submitted ? (
-        <p className="success-message">Thank you! We’ll get back to you shortly.</p>
-      ) : (
-        <form onSubmit={handleSubmit} className="contact-form">
-          <input
-            type="text"
-            name="fullname"
-            placeholder="Your Full Name"
-            value={formData.fullname}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email Address"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          <textarea
-            name="message"
-            rows="5"
-            placeholder="Your Message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-          ></textarea>
-          <button type="submit">Send Message</button>
-        </form>
-      )}
+      <h2>Contact Mans Joke Trucking</h2>
+      <p><strong>Address:</strong> Rio Rancho, New Mexico</p>
+      <p><strong>Email:</strong> info@mansjoketrucking.com</p>
+      <p><strong>Phone:</strong> +1 (505) 397-5459</p>
+      <p><strong>Business Hours:</strong> Monday – Friday, 8:00 AM – 5:00 PM</p>
+      <p><strong>Customer Support:</strong> We're here to help 24/7—just call or email us.</p>
     </div>
   );
 };

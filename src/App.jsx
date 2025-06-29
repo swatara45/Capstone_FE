@@ -19,7 +19,7 @@ function App() {
     {
       path: "/",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <AuthProvider>
             <Homepage />
           </AuthProvider>
@@ -29,7 +29,7 @@ function App() {
     {
       path: "/Login",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <AuthProvider>
             <Login />
           </AuthProvider>
@@ -39,7 +39,7 @@ function App() {
     {
       path: "/Register",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <AuthProvider>
             <Register />
           </AuthProvider>
@@ -49,7 +49,7 @@ function App() {
     {
       path: "/myparcels",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <AuthProvider>
             <ParcelProvider>
               <MyParcels />
@@ -61,7 +61,7 @@ function App() {
     {
       path: "/order",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <ParcelProvider>
             <CreateOrder />
           </ParcelProvider>
@@ -71,7 +71,7 @@ function App() {
     {
       path: "/track/:id",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <ParcelProvider>
             <TrackParcel />
           </ParcelProvider>
@@ -81,7 +81,7 @@ function App() {
     {
       path: "/allparcels",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <AuthProvider>
             <ParcelProvider>
               <AllParcels />
@@ -94,7 +94,7 @@ function App() {
     {
       path: "/logout",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <AuthProvider>
             <Logout />
           </AuthProvider>
@@ -104,7 +104,7 @@ function App() {
     {
       path: "/ContactUs",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <AuthProvider>
             <ContactUs />
           </AuthProvider>
@@ -114,7 +114,7 @@ function App() {
     {
       path:"/editparcel/:id",
       element: (
-        <MainLayout classname="container">
+        <MainLayout>
           <AuthProvider>
             <ParcelProvider>
               <EditParcel />
