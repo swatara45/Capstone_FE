@@ -1,7 +1,7 @@
 // src/requestMethods.js
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "https://capstone-be-1-sqdu.onrender.com/api";
 
 // For public endpoints (e.g. login, register)
 export const publicRequest = axios.create({
